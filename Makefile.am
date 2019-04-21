@@ -18,7 +18,7 @@ EXTRA_DIST = \
 
 ## "dist-hook" run after the distribution directory is filled, but before the actual tar (or shar) file is created.
 dist-hook:
-	@zabbix_revision=`svn info|grep "Last Changed Rev"|awk '{print $$4;}'`; \
+	@zabbix_revision=`git -C $(top_srcdir) rev-parse --short HEAD`; \
 	cat $(top_distdir)/include/version.h|sed "s/{ZABBIX_REVISION}/$$zabbix_revision/g" > $(top_distdir)/include/version.h.new; \
 	mv $(top_distdir)/include/version.h.new $(top_distdir)/include/version.h; \
 	cat $(top_distdir)/src/zabbix_java/src/com/zabbix/gateway/GeneralInformation.java|sed "s/{ZABBIX_REVISION}/$$zabbix_revision/g" > \
@@ -26,7 +26,7 @@ dist-hook:
 	mv $(top_distdir)/src/zabbix_java/src/com/zabbix/gateway/GeneralInformation.java.new \
 		$(top_distdir)/src/zabbix_java/src/com/zabbix/gateway/GeneralInformation.java
 
-	rm -rf `find $(top_distdir) -name ".svn"`
+	rm -rf `find $(top_distdir) -name ".gitignore" -o -name ".gitattributes"`
 	rm -f $(top_distdir)/create/data/data_test.sql
 	rm -f $(top_distdir)/include/config.h
 	rm -f $(top_distdir)/frontends/php/conf/zabbix.conf.php
