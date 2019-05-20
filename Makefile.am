@@ -30,18 +30,6 @@ EXTRA_DIST = \
 #      1 - alpha, 2 - beta, 3 - rc, 4 - release, 0 - unknown.
 # 'type_count' expression tries to find out number of "alpha", "beta" or "rc" (e.g. 1 from "rc1").
 dist-hook:
-# File revision number must be numeric (Git commit hash cannot be used).
-# Therefore to make it numeric and meaningful it is artificially composed from:
-#    - branch (development or release),
-#    - type (alpha, beta, rc or release),
-#    - number of alpha,beta or rc).
-# 'branch' expression tries to find out is it a development branch or release branch.
-#      Result is encoded as: 1 - dev branch, release branch or error occurred, 2 - tag.
-# 'type_name' expression tries to find out what type of release it is.
-#      Expected result is: "alpha", "beta", "rc" or "" (empty string).
-# 'type_num' expression encodes  'type_name' as numeric value:
-#      1 - alpha, 2 - beta, 3 - rc, 4 - release, 0 - unknown.
-# 'type_count' expression tries to find out number of "alpha", "beta" or "rc" (e.g. 1 from "rc1").
 	@branch=`(git symbolic-ref -q HEAD > /dev/null && echo 1) || (git tag -l --points-at HEAD| grep "."| grep -q -v "-" && echo 2) || echo 1`; \
 	type_name=`cat $(top_distdir)/include/version.h| sed -n -e '/ZABBIX_VERSION_RC/s/.*"\([a-z]*\)[0-9]*"/\1/p'`; \
 	type_num=`(test "x$$type_name" = "xalpha" && echo "1") || echo ""`; \
