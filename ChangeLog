@@ -3,6 +3,7 @@ Changes for 2.2.24rc1
 New features:
 
 Bug fixes:
+....I..... [ZBX-16074] added file revision number generation for compilation on MS Windows (MVekslers)
 
 --------------------------------------------------------------------------------
 Changes for 2.2.23
