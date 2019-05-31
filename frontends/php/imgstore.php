@@ -48,7 +48,10 @@ if (isset($_REQUEST['width']) || isset($_REQUEST['height'])) {
 }
 
 if (isset($_REQUEST['css'])) {
-	$css = '';
+	$css = 'div.sysmap_iconid_0 {'.
+			' height: 50px;'.
+			' width: 50px;'.
+			' background-image: url("images/general/no_icon.png"); }'."\n";
 
 	$images = API::Image()->get([
 		'output' => ['imageid'],
